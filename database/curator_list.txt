@@ -1,0 +1,120 @@
+4x Karn, Scion of Urza - 278
+4x Board the Weatherlight - 1
+4x Charge - 1
+4x Dauntless Bodyguard - 9
+4x Gideon's Reproach - 22
+4x Invoke the Divine - 4
+4x Knight of Grace - 33
+4x Lyra Dawnbringer - 115
+4x On Serra's Wings - 2
+4x Seal Away - 222
+4x Serra Angel - 4
+4x Shalai, Voice of Plenty - 47
+4x Teshar, Ancestor's Apostle - 3
+4x Tragic Poet - 1
+4x Urza's Ruinous Blast - 2
+4x Academy Journeymage - 1
+4x Arcane Flight - 1
+4x Artificer's Assistant - 2
+4x Blink of an Eye - 147
+4x Diligent Excavator - 1
+4x Divination - 381
+4x The Mirari Conjecture - 4
+4x Naban, Dean of Iteration - 1
+4x Naru Meha, Master Wizard - 1
+4x Opt - 98
+4x Tempest Djinn - 6
+4x Unwind - 3
+4x Wizard's Retort - 18
+4x Zahid, Djinn of the Lamp - 3
+4x Cast Down - 197
+4x Dark Bargain - 1
+4x Demonlord Belzenlok - 3
+4x Divest - 3
+4x Dread Shade - 15
+4x The Eldest Reborn - 25
+4x Fungal Infection - 4
+4x Josu Vess, Lich Knight - 8
+4x Knight of Malice - 71
+4x Torgaar, Famine Incarnate - 1
+4x Vicious Offering - 3
+4x Yawgmoth's Vile Offering - 2
+4x Fight with Fire - 8
+4x The Flame of Keld - 29
+4x Goblin Warchief - 9
+4x Jaya Ballard - 1
+4x Jaya's Immolating Inferno - 3
+4x Siege-Gang Commander - 136
+4x Skirk Prospector - 23
+4x Skizzik - 3
+4x Verix Bladewing - 5
+4x Warlord's Fury - 4
+4x Wizard's Lightning - 41
+4x Adventurous Impulse - 98
+4x Ancient Animus - 3
+4x Gaea's Blessing - 5
+4x Grow from the Ashes - 2
+4x Kamahl's Druidic Vow - 1
+4x Llanowar Elves - 913
+4x Marwyn, the Nurturer - 1
+4x Multani, Yavimaya's Avatar - 7
+4x Saproling Migration - 1
+4x Song of Freyalise - 2
+4x Spore Swarm - 1
+4x Sporecrown Thallid - 1
+4x Territorial Allosaurus - 6
+4x Thorn Elemental - 1
+4x Verdant Force - 4
+4x Yavimaya Sapherd - 1
+4x Adeliz, the Cinder Wind - 5
+4x Aryel, Knight of Windgrace - 5
+4x Darigaaz Reincarnated - 1
+4x Grand Warlord Radha - 1
+4x Jhoira, Weatherlight Captain - 1
+4x Muldrotha, the Gravetide - 5
+4x Oath of Teferi - 6
+4x Raff Capashen, Ship's Mage - 14
+4x Rona, Disciple of Gix - 1
+4x Shanna, Sisay's Legacy - 2
+4x Teferi, Hero of Dominaria - 291
+4x Gilded Lotus - 11
+4x Icy Manipulator - 11
+4x Juggernaut - 1
+4x Mox Amber - 22
+4x Navigator's Compass - 8
+4x Powerstone Shard - 2
+4x Traxos, Scourge of Kroog - 3
+4x Weatherlight - 2
+4x Cabal Stronghold - 9
+4x Clifftop Retreat - 1417
+4x Hinterland Harbor - 856
+4x Isolated Chapel - 1747
+4x Memorial to Folly - 12
+4x Memorial to Genius - 119
+4x Memorial to Glory - 4
+4x Memorial to Unity - 2
+4x Sulfur Falls - 755
+4x Woodland Cemetery - 92
+4x Zhalfirin Void - 31
+4x Plains - 33
+4x Plains - 33
+4x Plains - 33
+4x Plains - 33
+4x Island - 4
+4x Island - 4
+4x Island - 4
+4x Island - 4
+4x Swamp - 788
+4x Swamp - 788
+4x Swamp - 788
+4x Swamp - 788
+4x Mountain - 12752
+4x Mountain - 12752
+4x Mountain - 12752
+4x Mountain - 12752
+4x Forest - 13929
+4x Forest - 13929
+4x Forest - 13929
+4x Forest - 13929
+4x Meandering River - 57
+4x Timber Gorge - 7
