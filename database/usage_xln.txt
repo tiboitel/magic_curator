@@ -1,0 +1,95 @@
+4x Baffling End - 76
+4x Forerunner of the Legion - 1
+4x Legion Conquistador - 11
+4x Martyr of Dusk - 23
+4x Paladin of Atonement - 5
+4x Pride of Conquerors - 11
+4x Radiant Destiny - 28
+4x Skymarcher Aspirant - 42
+4x Slaughter the Strong - 1
+4x Snubhorn Sentry - 7
+4x Squire's Devotion - 3
+4x Zetalpa, Primal Dawn - 4
+4x Admiral's Order - 2
+4x Crashing Tide - 2
+4x Curious Obsession - 29
+4x Expel from Orazca - 1
+4x Hornswoggle - 2
+4x Mist-Cloaked Herald - 11
+4x Negate - 1215
+4x Nezahal, Primal Tide - 5
+4x Release to the Wind - 1
+4x Sailor of Means - 4
+4x Seafloor Oracle - 7
+4x Secrets of the Golden City - 4
+4x Silvergill Adept - 69
+4x Slippery Scoundrel - 4
+4x Warkite Marauder - 24
+4x Champion of Dusk - 19
+4x Dire Fleet Poisoner - 3
+4x Dusk Legion Zealot - 63
+4x Grasping Scoundrel - 5
+4x Mastermind's Acquisition - 21
+4x Moment of Craving - 98
+4x Reaver Ambush - 1
+4x Tetzimoc, Primal Death - 7
+4x Twilight Prophet - 9
+4x Vona's Hunger - 5
+4x Brass's Bounty - 1
+4x Daring Buccaneer - 2
+4x Etali, Primal Storm - 1
+4x Fanatical Firebrand - 177
+4x Pirate's Pillage - 1
+4x Reckless Rage - 3
+4x Rekindling Phoenix - 534
+4x Shatter - 8
+4x Tilonalli's Summoner - 2
+4x Deeproot Elite - 23
+4x Ghalta, Primal Hunger - 142
+4x Jade Bearer - 14
+4x Jadecraft Artisan - 1
+4x Jungleborn Pioneer - 15
+4x Naturalize - 11
+4x Path of Discovery - 1
+4x Plummet - 2
+4x Swift Warden - 7
+4x Tendershoot Dryad - 2
+4x Thrashing Brontodon - 223
+4x Thunderherd Migration - 6
+4x Wayward Swordtooth - 4
+4x Angrath, the Flame-Chained - 13
+4x Azor, the Lawbringer - 3
+4x Elenda, the Dusk Rose - 4
+4x Hadana's Climb - 83
+4x Winged Temple of Orazca - 34286
+4x Huatli, Radiant Champion - 6
+4x Journey to Eternity - 2
+4x Atzal, Cave of Eternity - 34286
+4x Kumena, Tyrant of Orazca - 24
+4x Legion Lieutenant - 25
+4x Merfolk Mistbinder - 25
+4x Path of Mettle - 12
+4x Metzali, Tower of Triumph - 34286
+4x Profane Procession - 21
+4x Tomb of the Dusk Rose - 34286
+4x Relentless Raptor - 11
+4x Vault of Catlacan - 34286
+4x Azor's Gateway - 9
+4x Sanctum of the Sun - 34286
+4x Gold-Forge Garrison - 34286
+4x The Immortal Sun - 9
+4x Orazca Relic - 5
+4x Silent Gravestone - 2
+4x Traveler's Amulet - 6
+4x Arch of Orazca - 167
+4x Forsaken Sanctuary - 191
+4x Foul Orchard - 77
+4x Highland Lake - 151
+4x Stone Quarry - 21
+4x Woodland Stream - 13
+4x Plains - 33
+4x Island - 4
+4x Swamp - 788
+4x Mountain - 12752
+4x Forest - 13929
+4x Cinder Barrens - 81
