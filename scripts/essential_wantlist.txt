@@ -1,108 +1,74 @@
-4x Karn, Scion of Urza
 4x Benalish Marshal
-4x History of Benalia
-4x Lyra Dawnbringer
-4x Shalai, Voice of Plenty
-4x Naru Meha, Master Wizard
-4x Demonlord Belzenlok
-4x Phyrexian Scriptures
-4x Goblin Chainwhirler
-4x Jaya Ballard
-4x Siege-Gang Commander
-4x Verix Bladewing
-4x Llanowar Elves
-4x Multani, Yavimaya's Avatar
-4x Steel Leaf Champion
-4x Darigaaz Reincarnated
-4x Jhoira, Weatherlight Captain
-4x Muldrotha, the Gravetide
-4x Teferi, Hero of Dominaria
-4x Gilded Lotus
-4x Weatherlight
-4x Clifftop Retreat
-4x Hinterland Harbor
-4x Isolated Chapel
-4x Sulfur Falls
-4x Woodland Cemetery
-4x Ajani, Adversary of Tyrants
-4x Cleansing Nova
-4x Leonin Warleader
-4x Remorseful Cleric
-4x Resplendent Angel
-4x Sai, Master Thopterist
-4x Tezzeret, Artifice Master
-4x Death Baron
-4x Diregraf Ghoul
-4x Duress
-4x Liliana, Untouched by Death
-4x Stitcher's Supplier
+4x Gideon's Reproach
+4x Invoke the Divine
+4x Knight of Grace
+4x Seal Away
+4x The Antiquities War
+4x Blink of an Eye
+4x Karn's Temporal Sundering
+4x Wizard's Retort
+4x Cast Down
+4x Dread Shade
+4x The Eldest Reborn
+4x Fungal Infection
+4x Fight with Fire
+4x The Flame of Keld
+4x Ghitu Lavarunner
+4x Squee, the Immortal
+4x Adventurous Impulse
+4x Raff Capashen, Ship's Mage
+4x Memorial to Folly
+4x Memorial to Genius
+4x Meandering River
+4x Invoke the Divine
+4x Essence Scatter
+4x Exclusion Mage
+4x Infernal Reckoning
 4x Banefire
-4x Demanding Dragon
-4x Goblin Trashmaster
-4x Sarkhan, Fireblood
-4x Sarkhan's Unsealing
-4x Elvish Clancaller
-4x Gigantosaurus
-4x Goreclaw, Terror of Qal Sisma
-4x Reclamation Sage
-4x Thorn Lieutenant
+4x Dragon Egg
+4x Lightning Strike
+4x Shock
+4x Viashino Pyromancer
+4x Gift of Paradise
+4x Naturalize
+4x Root Snare
 4x Vine Mare
-4x Vivien Reid
-4x Chromium, the Mutable
-4x Nicol Bolas, the Ravager
-4x Palladia-Mors, the Ruiner
-4x Vaevictis Asmadi, the Dire
-4x Llanowar Elves
-4x Radiant Destiny
-4x Zetalpa, Primal Dawn
+4x Nicol Bolas, the Arisen
+4x Cinder Barrens
+4x Forsaken Sanctuary
+4x Meandering River
+4x Submerged Boneyard
+4x Baffling End
 4x Negate
-4x Nezahal, Primal Tide
-4x Silvergill Adept
-4x Warkite Marauder
-4x Mastermind's Acquisition
-4x Twilight Prophet
-4x Dire Fleet Daredevil
-4x Rekindling Phoenix
-4x Deeproot Elite
-4x Ghalta, Primal Hunger
-4x Jadelight Ranger
-4x Tendershoot Dryad
-4x Thrashing Brontodon
-4x Angrath, the Flame-Chained
-4x Azor, the Lawbringer
-4x Elenda, the Dusk Rose
-4x Journey to Eternity
-4x Kumena, Tyrant of Orazca
-4x The Immortal Sun
-4x Arch of Orazca
+4x Golden Demise
+4x Moment of Craving
+4x Ravenous Chupacabra
+4x Fanatical Firebrand
+4x Naturalize
+4x Metzali, Tower of Triumph
+4x Profane Procession
+4x Evolving Wilds
+4x Forsaken Sanctuary
+4x Plains
+4x Island
+4x Swamp
+4x Cinder Barrens
 4x Ixalan's Binding
-4x Kinjalli's Sunwing
-4x Legion's Landing
-4x Settle the Wreckage
-4x Jace, Cunning Castaway
+4x Adanto, the First Fort
+4x Chart a Course
 4x River's Rebuke
-4x Search for Azcanta
-4x Arguel's Blood Fast
-4x Duress
-4x Vraska's Contempt
-4x Carnage Tyrant
-4x Deathgorge Scavenger
-4x Merfolk Branchwalker
-4x Ripjaw Raptor
-4x Shapers' Sanctuary
-4x Admiral Beckett Brass
-4x Hostage Taker
-4x Huatli, Warrior Poet
-4x Regisaur Alpha
-4x Vona, Butcher of Magan
-4x Vraska, Relic Seeker
-4x Sorcerous Spyglass
-4x Thaumatic Compass
-4x Treasure Map
-4x Dragonskull Summit
-4x Drowned Catacomb
-4x Field of Ruin
-4x Glacial Fortress
-4x Rootbound Crag
-4x Sunpetal Grove
-4x Unclaimed Territory
+4x Azcanta, the Sunken Ruin
+4x Spell Pierce
+4x Temple of Aclazotz
+4x Deadeye Tracker
+4x Ruin Raider
+4x Fiery Cannonade
+4x Lightning Strike
+4x Vance's Blasting Cannons
+4x Spitfire Bastion
+4x Crushing Canopy
+4x Itlimoc, Cradle of the Sun
+4x Wildgrowth Walker
+4x Primal Wellspring
+4x Sentinel Totem
+4x Spires of Orazca
