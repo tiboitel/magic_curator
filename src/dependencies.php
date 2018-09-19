@@ -9,3 +9,7 @@ $container['renderer'] = function ($c) {
 $container[\App\Controllers\MagicController::class] = function($c) {
 	return new \App\Controllers\MagicController($c);
 };
+
+$container[\App\Controllers\WantlistController::class] = function($c) {
+	return new \App\Controllers\WantlistController($c);
+};

@@ -43,12 +43,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Greg0/Lazer-Database.git",
-                "reference": "89fbfbf682bc87183ef7cfab8f6d2743b04a619c"
+                "reference": "0a26a52c95fe1e7047a23cc6faac231355a9453b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Greg0/Lazer-Database/zipball/89fbfbf682bc87183ef7cfab8f6d2743b04a619c",
-                "reference": "89fbfbf682bc87183ef7cfab8f6d2743b04a619c",
+                "url": "https://api.github.com/repos/Greg0/Lazer-Database/zipball/0a26a52c95fe1e7047a23cc6faac231355a9453b",
+                "reference": "0a26a52c95fe1e7047a23cc6faac231355a9453b",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "json",
                 "lazer"
             ],
-            "time": "2018-06-15T18:44:26+00:00"
+            "time": "2018-09-10T02:58:58+00:00"
         },
         {
             "name": "mtgsdk/mtgsdk",
@@ -494,12 +494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "7d441d2304cb808df0775af33fbcd7d469472d76"
+                "reference": "75f022669f8af477801eab163a222d6093820f43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/7d441d2304cb808df0775af33fbcd7d469472d76",
-                "reference": "7d441d2304cb808df0775af33fbcd7d469472d76",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/75f022669f8af477801eab163a222d6093820f43",
+                "reference": "75f022669f8af477801eab163a222d6093820f43",
                 "shasum": ""
             },
             "require": {
@@ -512,6 +512,7 @@
             "require-dev": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
+                "php-http/psr7-integration-tests": "dev-master",
                 "phpunit/phpunit": "^5.7.16 || ^6.0.8 || ^7.2.7",
                 "zendframework/zend-coding-standard": "~1.0"
             },
@@ -549,7 +550,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2018-08-10T14:17:39+00:00"
+            "time": "2018-09-05T19:36:17+00:00"
         }
     ],
     "packages-dev": [],
