@@ -13,3 +13,7 @@ $container[\App\Controllers\MagicController::class] = function($c) {
 $container[\App\Controllers\WantlistController::class] = function($c) {
 	return new \App\Controllers\WantlistController($c);
 };
+
+$container[\App\Controllers\DecklistController::class] = function($c) {
+	return new \App\Controllers\DecklistController($c);
+};

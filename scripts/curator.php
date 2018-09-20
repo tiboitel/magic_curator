@@ -35,64 +35,74 @@ class MTGScrapper
 	}	
 
 
-	public function	get_decks_list($format, $max_page = 50)
+	public function	get_decks_list($format, $max_page)
 	{
 		$decks_list = [];
 		$headers = [];
 		$current_page = 0;
 		$url = "https://mtgdecks.net/";
-		for ($current_page = 0; $current_page < 50; $current_page++)
+		for ($current_page = 1; $current_page < $max_page; $current_page++)
 		{
-		// Better use http_build_url if pecl is enabled.
-		$query = $url . $format . "/decklists/" ;
-		$args = http_build_query([
-			"page" => $current_page
-			], ":");
-		$query .= $args;
-		$http_response = $this->client->get($query);
-		$dom = HtmlDomParser::str_get_html($http_response->getBody());
-		$content = $dom->find("div[class=decks index]", 0);
-		$decks_table = $content->children(0)->children(1)->children(0);
-		foreach ($decks_table->find('tr') as $tr)
-		{
-			$column_id = 0;
-			$deck = [];
-			foreach ($tr->find('td') as $td)
+			// Better use http_build_url if pecl is enabled.
+			$query = $url . $format . "/decklists/" ;
+			$args = "page:" . $current_page;
+			$query .= $args;
+			$http_response = $this->client->get($query);
+			$dom = HtmlDomParser::str_get_html($http_response->getBody());
+			$content = $dom->find("div[class=decks index]", 0);
+			$decks_table = $content->children(0)->children(1)->children(0);
+			foreach ($decks_table->find('tr') as $tr)
 			{
-				switch ($column_id)
+				$column_id = 0;
+				$deck = [];
+				foreach ($tr->find('td') as $td)
 				{
-					case 0:
-						// Place in tournament.
-					break;
-					case 1:
-						$node = $td->children(0)->children(0);
-						$deck['name'] = $node->plaintext;
-						$deck['source'] = $url . $node->href;
-						$deck['id'] = substr($deck['source'], strrpos($deck['source'], '-') + 1);
-					break;
-					case 2:
-						$deck['archetype'] = $td->plaintext;
-					break;
-					case 3:
-						// Colors
-					break;
-					case 4:
-						// Number of player
-					break;
-					case 5: 
-						// Date
-						
-					break;
-					case 6:
-						// Price low.
-					break;
+					switch ($column_id)
+					{
+						case 0:
+							// Place in tournament.
+							break;
+						case 1:
+							$node = $td->children(0)->children(0);
+							$deck['name'] = $node->plaintext;
+							$deck['source'] = $url . $node->href;
+							$deck['id'] = substr($deck['source'], strrpos($deck['source'], '-') + 1);
+							break;
+						case 2:
+							$deck['archetype'] = $td->plaintext;
+							break;
+						case 3:
+							$color = "";
+							foreach ($td->find('span') as $span)
+							{
+								if ($span->class !== "small-icon")
+								{
+									$class = explode(" ", $span->class);
+									$color .= substr($class[2], strrpos($class[2], '-') + 1);
+								}	
+							}
+							$deck['color'] = strtoupper($color);
+							// Colors
+							break;
+						case 4:
+							// Number of player
+							break;
+						case 5: 
+							// Date
+
+							break;
+						case 6:
+							// Price low.
+							break;
+					}
+					$column_id++;
 				}
-				$column_id++;
+				if (!empty($deck))
+					$decks_list[] = $deck;
 			}
-			$decks_list[] = $deck;
+			array_pop($decks_list);
 		}
-		}
-		print_r($decks_list);
+		$deck_list = array_values(array_filter($decks_list));
 		return ($decks_list);
 		//	$content = $http_response->getBody();
 	}
@@ -153,5 +163,5 @@ class MTGScrapper
 
 $scrapper = new MTGScrapper();
 //$scrapper->update_all_cards();
-file_put_contents("../database/decklist.json", json_encode($scrapper->get_decks_list("Standard")));
+file_put_contents("../database/decklist.json", json_encode($scrapper->get_decks_list("Standard", 100)));
 ?>
