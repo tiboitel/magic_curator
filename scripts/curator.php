@@ -4,6 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use mtgsdk\Card;
 use pdeans\Http\Client;
+use Sunra\PhpSimple\HtmlDomParser;
 
 class MTGScrapper
 {
@@ -11,10 +12,10 @@ class MTGScrapper
 
 	public function __construct()
 	{
-		 $this->client = new Client([
-			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_SSL_VERIFYHOST => 0
-			]);
+		$this->client = new Client([
+				CURLOPT_SSL_VERIFYPEER => 0,
+				CURLOPT_SSL_VERIFYHOST => 0
+				]);
 	}
 
 	public function update_all_cards()
@@ -23,7 +24,7 @@ class MTGScrapper
 		$cards_csv = "";
 		foreach($cards as $card)
 		{
-			$usage = $this->usage_in_standard($card->name);
+			$usage = $this->get_usage_in_standard($card->name);
 			printf("Current card: %s. Usage: %d. \r\n", $card->name, $usage);
 			$price = $this->get_card_prices($card->name);
 			print_r($price);
@@ -34,15 +35,76 @@ class MTGScrapper
 	}	
 
 
+	public function	get_decks_list($format, $max_page = 50)
+	{
+		$decks_list = [];
+		$headers = [];
+		$current_page = 0;
+		$url = "https://mtgdecks.net/";
+		for ($current_page = 0; $current_page < 50; $current_page++)
+		{
+		// Better use http_build_url if pecl is enabled.
+		$query = $url . $format . "/decklists/" ;
+		$args = http_build_query([
+			"page" => $current_page
+			], ":");
+		$query .= $args;
+		$http_response = $this->client->get($query);
+		$dom = HtmlDomParser::str_get_html($http_response->getBody());
+		$content = $dom->find("div[class=decks index]", 0);
+		$decks_table = $content->children(0)->children(1)->children(0);
+		foreach ($decks_table->find('tr') as $tr)
+		{
+			$column_id = 0;
+			$deck = [];
+			foreach ($tr->find('td') as $td)
+			{
+				switch ($column_id)
+				{
+					case 0:
+						// Place in tournament.
+					break;
+					case 1:
+						$node = $td->children(0)->children(0);
+						$deck['name'] = $node->plaintext;
+						$deck['source'] = $url . $node->href;
+						$deck['id'] = substr($deck['source'], strrpos($deck['source'], '-') + 1);
+					break;
+					case 2:
+						$deck['archetype'] = $td->plaintext;
+					break;
+					case 3:
+						// Colors
+					break;
+					case 4:
+						// Number of player
+					break;
+					case 5: 
+						// Date
+						
+					break;
+					case 6:
+						// Price low.
+					break;
+				}
+				$column_id++;
+			}
+			$decks_list[] = $deck;
+		}
+		}
+		print_r($decks_list);
+		return ($decks_list);
+		//	$content = $http_response->getBody();
+	}
 
 	public function get_standard_cards()
 	{
 		// $dom = 	$cards = Card::where(["set" => "DOM"])->where(["name" => "Knight of Malice"])->all();
-			$dom = 	$cards = Card::where(["set" => "DOM"])->all();
-			$m19 = 	$cards = Card::where(["set" => "M19"])->all();
-			$rlx = 	$cards = Card::where(["set" => "RIX"])->all();
-			$xln = 	$cards = Card::where(["set" => "XLN"])->all();
-			$standard = array_merge($dom, $m19, $rlx, $xln);
+		$dom = 	$cards = Card::where(["set" => "DOM"])->all();
+		$m19 = 	$cards = Card::where(["set" => "M19"])->all();
+		$rlx = 	$cards = Card::where(["set" => "RIX"])->all();
+		$xln = 	$cards = Card::where(["set" => "XLN"])->all();
+		$standard = array_merge($dom, $m19, $rlx, $xln);
 		return ($standard);
 	}
 
@@ -55,7 +117,7 @@ class MTGScrapper
 		return ($price);
 	}
 
-	public function usage_in_standard($cardname)
+	public function get_usage_in_standard($cardname)
 	{
 		$headers = [];
 		$body = http_build_query([
@@ -90,6 +152,6 @@ class MTGScrapper
 }
 
 $scrapper = new MTGScrapper();
-$scrapper->update_all_cards();
 //$scrapper->update_all_cards();
+file_put_contents("../database/decklist.json", json_encode($scrapper->get_decks_list("Standard")));
 ?>

@@ -6,7 +6,8 @@
         "slim/php-view": "dev-master",
         "greg0/lazer-database": "dev-master",
         "pdeans/http": "dev-master",
-        "mtgsdk/mtgsdk": "dev-master"
+        "mtgsdk/mtgsdk": "dev-master",
+        "sunra/php-simple-html-dom-parser": "dev-master"
     },
 	"autoload": {
 		"psr-4": {
