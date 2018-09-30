@@ -35,7 +35,11 @@
 				<?php
 				foreach ($decklist as $deck): ?>
 					<tr>
-						<td><?=$deck->name;?></td>
+						<td>
+							<a href="">
+								<?=$deck->name . "<br> By " . $deck->author;?>
+							 
+						</td>
 						<td><?=$deck->archetype;?></td>
 						<td><?=$deck->color;?></td>
 					</tr>

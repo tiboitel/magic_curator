@@ -20,7 +20,7 @@ class WantlistController extends AbstractController
 
 	function show(Request $request, Response $response)
 	{
-		$wantlist = $this->generate(["price_min" => 0.11, "price_max" => 0.70, "usage_min" => 5,
+		$wantlist = $this->generate(["price_min" => 0.01, "price_max" => 0.11, "usage_min" => 5,
 		"usage_max" => 9999999]);
 		$this->renderer->render($response, 'index.phtml', array("wantlist" => $wantlist));
 		return $response;

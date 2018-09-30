@@ -66,7 +66,10 @@ class MTGScrapper
 							$node = $td->children(0)->children(0);
 							$deck['name'] = $node->plaintext;
 							$deck['source'] = $url . $node->href;
-							$deck['id'] = substr($deck['source'], strrpos($deck['source'], '-') + 1);
+							$deck['id'] = substr($deck['source'], strrpos($deck['source'], '-') + 1);							
+							$deck['author'] = substr($td->children(3)->plaintext, 3);
+							// need to use better function to clear html entitites
+							$deck['author'] = str_replace("&nbsp;",  "", $deck['author']);
 							break;
 						case 2:
 							$deck['archetype'] = $td->plaintext;
