@@ -1,13 +1,13 @@
 #!/usr/bin/php
 <?php
-require __DIR__ . '/../vendor/autoload.php';
-
 namespace MTGScrapper;
+
+require __DIR__ . '/../vendor/autoload.php';
 
 use mtgsdk\Card;
 use pdeans\Http\Client;
 use Sunra\PhpSimple\HtmlDomParser;
-
+use App\Models;
 
 class MTGScrapper
 {
@@ -115,9 +115,38 @@ class MTGScrapper
 
 	public function get_deck($url)
 	{
-	 	$deck = [];
+	 	$deck = new \App\Models\Deck();
 		$headers = [];
-		
+		$http_response = $this->client->get($url);
+		$dom = HtmlDomParser::str_get_html($http_response->getBody());
+		$deck_info = $dom->find("div[class=deckInfo col-sm-8]", 0);
+		// Get deck id.
+		$deck->setId((int)(substr($url, strrpos($url, "-") + 1)));
+		// Get deck name.
+		$deck->setName(substr($deck_info->children(0)->children(0)->plaintext, 0, -1));
+		// Get deck author;
+		$tmp = $deck_info->children(0)->children(1)->plaintext;
+		$deck->setAuthor(substr($tmp, strpos($tmp, ":") + 2, -1));
+		// Get deck date
+		$deck->setDate(\DateTime::createFromFormat(" j-M-Y", $deck_info->children(4)->plaintext));
+		// Shit not done
+		$deck->setIdEvent(0);
+		$deck->setIdArchetype(0);
+		// Get cards
+		$deck_info = $dom->find("div[class=wholeDeck]", 0);
+		$cards = [];
+		foreach ($deck_info->find("table") as $table)
+		{
+			foreach ($table->find("tr[class=cardItem]") as $cardItem)
+			{
+				$line = $cardItem->children(0)->plaintext;
+				$number = substr($line, 1, 1);
+				$name = substr($line, strpos($line, ";") + 1, -13);
+				$cards[] = array('number' => $number, 'name' => htmlspecialchars_decode($name, ENT_QUOTES));
+			}
+		}
+		$deck->setCards($cards);
+		print_r($deck);
 	}
 
 	public function get_standard_cards()
@@ -175,6 +204,7 @@ class MTGScrapper
 }
 
 $scrapper = new MTGScrapper();
-$scrapper->update_all_cards();
-file_put_contents("../database/decklist.json", json_encode($scrapper->get_decks_list("Standard", 100)));
+//$scrapper->update_all_cards();
+//file_put_contents("../database/decklist.json", json_encode($scrapper->get_decks_list("Standard", 100)));
+$scrapper->get_deck("https://mtgdecks.net/Standard/red-deck-wins-decklist-by-giordano-fagiolo-757107");
 ?>
