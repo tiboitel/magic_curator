@@ -2,9 +2,12 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
+namespace MTGScrapper;
+
 use mtgsdk\Card;
 use pdeans\Http\Client;
 use Sunra\PhpSimple\HtmlDomParser;
+
 
 class MTGScrapper
 {
@@ -110,6 +113,13 @@ class MTGScrapper
 		//	$content = $http_response->getBody();
 	}
 
+	public function get_deck($url)
+	{
+	 	$deck = [];
+		$headers = [];
+		
+	}
+
 	public function get_standard_cards()
 	{
 		// $dom = 	$cards = Card::where(["set" => "DOM"])->where(["name" => "Knight of Malice"])->all();
@@ -165,6 +175,6 @@ class MTGScrapper
 }
 
 $scrapper = new MTGScrapper();
-//$scrapper->update_all_cards();
+$scrapper->update_all_cards();
 file_put_contents("../database/decklist.json", json_encode($scrapper->get_decks_list("Standard", 100)));
 ?>
