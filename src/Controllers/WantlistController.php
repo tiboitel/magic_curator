@@ -20,7 +20,7 @@ class WantlistController extends AbstractController
 
 	function show(Request $request, Response $response)
 	{
-		$wantlist = $this->generate(["price_min" => 0.01, "price_max" => 0.11, "usage_min" => 5,
+		$wantlist = $this->generate(["price_min" => 0.01, "price_max" => 20, "usage_min" => 2,
 		"usage_max" => 9999999]);
 		$this->renderer->render($response, 'index.phtml', array("wantlist" => $wantlist));
 		return $response;
@@ -35,9 +35,10 @@ class WantlistController extends AbstractController
 			$dataset[] = [
 			"name" => $data[0],
 			"usage" => $data[1],
-			"price_low" => $data[2],
-			"price_average" => $data[3],
-			"price_high" => $data[4]
+			"occurence" => $data[2],
+			"price_low" => $data[3],
+			"price_average" => $data[4],
+			"price_high" => $data[5]
 			];
 		}
 		fclose($file_handler);
@@ -56,7 +57,7 @@ class WantlistController extends AbstractController
 							$card['price_low'] != 0.0)
 			{
 				if (strpos($wantlist, $card['name']) == FALSE)
-					$wantlist .= "4x " . $card['name'] . "\r\n";
+					$wantlist .= $card['occurence'] . "x " . $card['name'] . "\r\n";
 			}
 		}
 		return ($wantlist);

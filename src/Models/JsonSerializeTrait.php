@@ -5,8 +5,8 @@ trait JsonSerializeTrait
 {
 	function jsonSerialize()
 	{
-		$reflect = new ReflectionClass($this);
-		$props   = $reflect->getProperties(ReflectionProperty::IS_STATIC | ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PRIVATE);
+		$reflect = new \ReflectionClass($this);
+		$props   = $reflect->getProperties(\ReflectionProperty::IS_STATIC | \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE);
 		
 		
 		$propsIterator = function() use ($props) {

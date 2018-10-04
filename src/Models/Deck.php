@@ -6,6 +6,14 @@ class Deck implements \JsonSerializable
 {
 	use JsonSerializeTrait;
 
+	private		$id;
+	private		$name;
+	private		$author;
+	private		$date;
+	private		$id_event;
+	private		$id_archetype;
+	private		$cards;
+
 	public function setId(int $id = 0): self
 	{
 		$this->id = $id;

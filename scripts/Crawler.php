@@ -28,23 +28,41 @@ class MTGScrapper
 		foreach($cards as $card)
 		{
 			$usage = $this->get_usage_in_standard($card->name);
-			printf("Current card: %s. Usage: %d. \r\n", $card->name, $usage);
-			$price = $this->get_card_prices($card->name);
-			print_r($price);
-			$cards_csv .=  $card->name . ";" . $usage . ";" .  $price['low'] . ";" . $price['average'] . ";" . $price['high'] .  "\r\n";
+			if ($card->name !== "Plains" &&
+				$card->name !== "Mountain" &&
+					$card->name !== "Forest" &&
+						$card->name !== "Swamp" &&
+							$card->name !== "Island")
+			{
+				printf("Current card: %s. Usage: %d. \r\n", $card->name, $usage);
+				$price = $this->get_card_prices($card->name);
+				$cards_csv .=  $card->name . ";" . $usage . ";" . $this->get_occurence_per_deck($card->name) . ";" .  $price['low'] . ";" . $price['average'] . ";" . $price['high'] .  "\r\n";
+			}
 			// create an auction object with card name id usage price 
 		}
 		file_put_contents("../database/database.csv", $cards_csv);
 	}	
 
 
-	public function	get_decks_list($format, $max_page)
+	public function get_all_decks()
+	{
+		$decks = [];
+		$decklists = json_decode(file_get_contents("../database/decklist.json"));
+		foreach ($decklists as $decklist)
+		{
+			$deck = $this->get_deck($decklist->source);
+			$decks[] = $deck;
+		}
+		return ($decks);
+	}
+
+	public function	update_decklist($format, $max_page)
 	{
 		$decks_list = [];
 		$headers = [];
 		$current_page = 0;
 		$url = "https://mtgdecks.net/";
-		for ($current_page = 1; $current_page < $max_page; $current_page++)
+		for ($current_page = 1; $current_page <= $max_page; $current_page++)
 		{
 			// Better use http_build_url if pecl is enabled.
 			$query = $url . $format . "/decklists/" ;
@@ -103,12 +121,10 @@ class MTGScrapper
 					}
 					$column_id++;
 				}
-				if (!empty($deck))
+				if (isset($deck) && !empty($deck))
 					$decks_list[] = $deck;
 			}
-			array_pop($decks_list);
 		}
-		$deck_list = array_values(array_filter($decks_list));
 		return ($decks_list);
 		//	$content = $http_response->getBody();
 	}
@@ -128,7 +144,8 @@ class MTGScrapper
 		$tmp = $deck_info->children(0)->children(1)->plaintext;
 		$deck->setAuthor(substr($tmp, strpos($tmp, ":") + 2, -1));
 		// Get deck date
-		$deck->setDate(\DateTime::createFromFormat(" j-M-Y", $deck_info->children(4)->plaintext));
+		$date = (empty($deck_info->children(4)->plaintext)) ? ($deck_info->children(3)->plaintext) : ($deck_info->children(4)->plaintext);
+		$deck->setDate(\DateTime::createFromFormat(" j-M-Y", $date));
 		// Shit not done
 		$deck->setIdEvent(0);
 		$deck->setIdArchetype(0);
@@ -146,17 +163,19 @@ class MTGScrapper
 			}
 		}
 		$deck->setCards($cards);
-		print_r($deck);
+		return ($deck);
 	}
 
 	public function get_standard_cards()
 	{
-		// $dom = 	$cards = Card::where(["set" => "DOM"])->where(["name" => "Knight of Malice"])->all();
-		$dom = 	$cards = Card::where(["set" => "DOM"])->all();
-		$m19 = 	$cards = Card::where(["set" => "M19"])->all();
-		$rlx = 	$cards = Card::where(["set" => "RIX"])->all();
-		$xln = 	$cards = Card::where(["set" => "XLN"])->all();
-		$standard = array_merge($dom, $m19, $rlx, $xln);
+		// $standard  = Card::where(["set" => "DOM"])->where(["name" => "Knight of Malice"])->all();
+		//$standard = Card::where(["gameFormat" => "Standard"])->all();
+		$dom = Card::where(["set" => "DOM"])->all();
+		$m19 = Card::where(["set" => "M19"])->all();
+		$rlx = Card::where(["set" => "RIX"])->all();
+		$xln = Card::where(["set" => "XLN"])->all();
+		$grn = Card::where(["set" => "GRN"])->all();
+		$standard = array_merge($dom, $m19, $rlx, $xln, $grn);
 		return ($standard);
 	}
 
@@ -170,6 +189,45 @@ class MTGScrapper
 	}
 
 	public function get_usage_in_standard($cardname)
+	{
+		$decks = json_decode(file_get_contents("../database/decks.json"));
+		$usage = 0;
+		foreach ($decks as $deck)
+		{
+			foreach ($deck->cards as $card)
+			{
+				if ($card->name === $cardname)
+				{
+					$usage++;
+				}
+			}
+		}
+		return ($usage);
+	}
+
+	public function get_occurence_per_deck($cardname)
+	{
+		$decks = json_decode(file_get_contents("../database/decks.json"));
+		$usage = 0;
+		$usage_in_deck = 0;
+		foreach ($decks as $deck)
+		{
+			foreach ($deck->cards as $card)
+			{
+				if ($card->name === $cardname)
+				{
+					$usage_in_deck++;
+					$usage += $card->number;
+				}
+			}
+		}
+		if ($usage_in_deck == 0)
+			return (0);
+		$usage = ceil($usage / $usage_in_deck);
+		return ($usage);
+
+	}
+	/*public function get_usage_in_standard($cardname)
 	{
 		$headers = [];
 		$body = http_build_query([
@@ -200,11 +258,11 @@ class MTGScrapper
 		$http_response = $this->client->post("https://www.mtgtop8.com/search", $headers, $body);
 		preg_match("/([0-9]*) decks matching/m", $http_response->getBody(), $matches);
 		return ($matches[1]);
-	}
+	} */
 }
 
 $scrapper = new MTGScrapper();
-//$scrapper->update_all_cards();
-//file_put_contents("../database/decklist.json", json_encode($scrapper->get_decks_list("Standard", 100)));
-$scrapper->get_deck("https://mtgdecks.net/Standard/red-deck-wins-decklist-by-giordano-fagiolo-757107");
+$scrapper->update_all_cards();
+//file_put_contents("../database/decklist.json", json_encode($scrapper->update_decklist("Standard", 4)));
+//file_put_contents("../database/decks.json", json_encode($scrapper->get_all_decks()));
 ?>
