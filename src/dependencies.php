@@ -1,6 +1,14 @@
 <?php
 $container = $app->getContainer();
 
+$container['session'] = function ($c) {
+	return new Session();
+};
+
+$container['flash'] = function ($c) {
+	return new \Slim\Flash\Messages();
+}
+
 $container['renderer'] = function ($c) {
 	$settings = $c->get('settings')['renderer'];
 	return new \Slim\Views\PhpRenderer($settings['template_path']);
