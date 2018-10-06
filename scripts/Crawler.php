@@ -22,18 +22,14 @@ class MTGScrapper
 	}
 
 	public function update_all_cards()
-	{	
+	{
 		$cards = $this->get_standard_cards();
 		$cards_csv = "";
 		foreach($cards as $card)
 		{
 			$usage = $this->get_usage_in_standard($card->name);
-			if ($card->name !== "Plains" &&
-				$card->name !== "Mountain" &&
-					$card->name !== "Forest" &&
-						$card->name !== "Swamp" &&
-							$card->name !== "Island")
-			{
+			if (Utils\Helper::isBasicLand($card->name))
+				{
 				printf("Current card: %s. Usage: %d. \r\n", $card->name, $usage);
 				$price = $this->get_card_prices($card->name);
 				$cards_csv .=  $card->name . ";" . $usage . ";" . $this->get_occurence_per_deck($card->name) . ";" .  $price['low'] . ";" . $price['average'] . ";" . $price['high'] .  "\r\n";
@@ -227,7 +223,8 @@ class MTGScrapper
 		return ($usage);
 
 	}
-	/*public function get_usage_in_standard($cardname)
+	
+	public function get_usage_in_standard_on_mtg_top_8($cardname)
 	{
 		$headers = [];
 		$body = http_build_query([
@@ -258,7 +255,7 @@ class MTGScrapper
 		$http_response = $this->client->post("https://www.mtgtop8.com/search", $headers, $body);
 		preg_match("/([0-9]*) decks matching/m", $http_response->getBody(), $matches);
 		return ($matches[1]);
-	} */
+	}
 }
 
 $scrapper = new MTGScrapper();

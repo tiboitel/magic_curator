@@ -7,7 +7,7 @@ $container['session'] = function ($c) {
 
 $container['flash'] = function ($c) {
 	return new \Slim\Flash\Messages();
-}
+};
 
 $container['renderer'] = function ($c) {
 	$settings = $c->get('settings')['renderer'];
