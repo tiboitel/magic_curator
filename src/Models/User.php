@@ -10,7 +10,7 @@ class User implements \JsonSerializable
 	private		$token;
 	private		$token_date_expired;
 	private		$login;
-	private		$groups;
+	private		$password;
 	protected	$table = 'Users';
 
 	public function setId(int $id = 0) : self
@@ -43,6 +43,17 @@ class User implements \JsonSerializable
 	public function setLogin(string $login) : self
 	{
 		$this->login = $login;
+		return $this;
+	}
+
+	public function getPassword(): ?string
+	{
+		return $this->password;
+	}
+
+	public function setPassword(string $password) : self
+	{
+		$this->password = $password
 		return $this;
 	}
 
