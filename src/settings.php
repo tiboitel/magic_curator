@@ -15,8 +15,8 @@ return [
 			'driver' => 'mysql',
 			'host' => 'localhost',
 			'database' => 'mtgdataheap',
-			'username' => 'mangos_mysql',
-			'password' => 'cq0OwLnS',
+			'username' => 'mysql',
+			'password' => 'password'
 			'charset' => 'utf8',
 			'collation' => 'utf8_general_ci',
 			'prefix' => ''
