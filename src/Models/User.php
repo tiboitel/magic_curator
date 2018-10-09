@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
+
 class User implements \JsonSerializable
 {
 	use JsonSerializeTrait;
@@ -9,6 +11,7 @@ class User implements \JsonSerializable
 	private		$token_date_expired;
 	private		$login;
 	private		$groups;
+	protected	$table = 'Users';
 
 	public function setId(int $id = 0) : self
 	{

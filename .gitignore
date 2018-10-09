@@ -1,3 +1,4 @@
 /vendor/
+./src/settings.php
 *.swp
 *.log

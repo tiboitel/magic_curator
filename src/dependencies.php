@@ -1,6 +1,15 @@
 <?php
 $container = $app->getContainer();
 
+$capsule = new \Illuminate\Database\Capsule\Manager;
+$capsule->addConnection($container->get('settings')['database']);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+
+$container['database'] = function ($c) use ($capsule) {
+	return $capsule;
+};
+
 $container['session'] = function ($c) {
 	return new Session();
 };

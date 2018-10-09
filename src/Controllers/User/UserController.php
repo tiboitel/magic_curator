@@ -4,8 +4,9 @@ namespace App\Controllers\User;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+Use App\Models\User;
 
-class UserController extends AbstractController
+class UserController extends \App\Controllers\AbstractController
 {
 	protected	$renderer;
 	
@@ -13,12 +14,13 @@ class UserController extends AbstractController
 	{
 		parent::__construct($container);
 		$this->renderer = $container->renderer;
+		$this->database = $container->database;
 	}
 
 	function show(Request $request, Response $response)
 	{
-		var_dump($request);
-		$this->renderer->render($response, "index.phtml", []);
+		$user = User::where("email", "jules.boitelle@gmail.com")->first();
+		$this->renderer->render($response, "login.twig", []);
 		return $response;
 	}
 }

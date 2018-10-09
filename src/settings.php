@@ -14,7 +14,15 @@ return [
 			'template_path' => __DIR__ . '/../templates/'
 		],
 		'database' => [
-			'database_path' => __DIR__ . '/../database/'
+			'database_path' => '../database/',
+			'driver' => 'mysql',
+			'host' => 'localhost',
+			'database' => 'mtgdataheap',
+			'username' => 'mangos_mysql',
+			'password' => 'cq0OwLnS',
+			'charset' => 'utf8',
+			'collation' => 'utf8_general_ci',
+			'prefix' => ''
 		]
 	]
 ];

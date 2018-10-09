@@ -32,7 +32,7 @@ class MTGScrapper
 				{
 				printf("Current card: %s. Usage: %d. \r\n", $card->name, $usage);
 				$price = $this->get_card_prices($card->name);
-				$cards_csv .=  $card->name . ";" . $usage . ";" . $this->get_occurence_per_deck($card->name) . ";" .  $price['low'] . ";" . $price['average'] . ";" . $price['high'] .  "\r\n";
+				$cards_csv .=  $card->name . ";" . $card->color . ";" . $usage . ";" . $this->get_occurence_per_deck($card->name) . ";" .  $price['low'] . ";" . $price['average'] . ";" . $price['high'] .  "\r\n";
 			}
 			// create an auction object with card name id usage price 
 		}
