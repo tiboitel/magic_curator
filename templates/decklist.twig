@@ -1,0 +1,31 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+				<table>
+					<tbody>
+					<tr>
+						<th>
+							Name
+						</th>
+						<th>
+							Archetype
+						</th>
+						<th>
+							Color
+						</th>
+					</tr>
+				<?php
+				 {% for deck in decklist %}
+					<tr>
+						<td>
+							<a href="{{ deck.source|e }}">{{ deck.name|e }}</a><br> By {{ deck.author|e }}
+							 
+						</td>
+						<td>{{ deck.archetype }}</td>
+						<td>{{ deck.author|e }}</td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+		</div>
+{% endblock %}	

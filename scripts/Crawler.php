@@ -260,6 +260,6 @@ class MTGScrapper
 
 $scrapper = new MTGScrapper();
 $scrapper->update_all_cards();
-//file_put_contents("../database/decklist.json", json_encode($scrapper->update_decklist("Standard", 4)));
-//file_put_contents("../database/decks.json", json_encode($scrapper->get_all_decks()));
+file_put_contents("../database/decklist.json", json_encode($scrapper->update_decklist("Standard", 9)));
+file_put_contents("../database/decks.json", json_encode($scrapper->get_all_decks()));
 ?>

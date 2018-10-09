@@ -19,7 +19,7 @@ class DecklistController extends AbstractController
 
 	function show(Request $request, Response $response)
 	{
-		$this->renderer->render($response, "decklist.phtml", ["decklist" => $this->decklist]);
+		$this->renderer->render($response, "decklist.twig", ["decklist" => $this->decklist]);
 		return $response;
 	}
 

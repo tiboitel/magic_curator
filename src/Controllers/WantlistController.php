@@ -20,9 +20,12 @@ class WantlistController extends AbstractController
 
 	function show(Request $request, Response $response)
 	{
-		$wantlist = $this->generate(["price_min" => 5, "price_max" => 25, "usage_min" => 1,
-		"usage_max" => 9999999]);
-		$this->renderer->render($response, 'index.phtml', array("wantlist" => $wantlist));
+		$wantlist = $this->generate([
+			"price_min" => 5.01,
+			"price_max" => 99,
+			"usage_min" => 2,
+			"usage_max" => 9999999]);
+		$this->renderer->render($response, 'staples.twig', array("wantlist" => $wantlist));
 		return $response;
 	}
 

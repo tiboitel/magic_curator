@@ -11,7 +11,18 @@ $container['flash'] = function ($c) {
 
 $container['renderer'] = function ($c) {
 	$settings = $c->get('settings')['renderer'];
-	return new \Slim\Views\PhpRenderer($settings['template_path']);
+	$view = new \Slim\Views\Twig($settings['template_path'], [
+		'cache' => false
+	]);
+
+	$view->addExtension(new Slim\Views\TwigExtension(
+		$c->router,
+		$c->request->getUri()));
+	return ($view);
+};
+
+$container[\App\Controllers\UserController::class] = function($c) {
+	return new \App\Controllers\UserController($c);
 };
 
 $container[\App\Controllers\MagicController::class] = function($c) {

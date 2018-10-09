@@ -19,35 +19,8 @@
 		</header>
 		<hr>
 		<div class="container">
-				<table>
-					<tbody>
-					<tr>
-						<th>
-							Name
-						</th>
-						<th>
-							Archetype
-						</th>
-						<th>
-							Color
-						</th>
-					</tr>
-				<?php
-				foreach ($decklist as $deck): ?>
-					<tr>
-						<td>
-							<a href="">
-								<?=$deck->name . "<br> By " . $deck->author;?>
-							 
-						</td>
-						<td><?=$deck->archetype;?></td>
-						<td><?=$deck->color;?></td>
-					</tr>
-
-				<?php endforeach ?>
-					</tbody>
-				</table>
-		</div>	
+			{% block content %} {% endblock %}
+		</div>
 		<footer class="text-center">
 			<hr>
 			<div>
