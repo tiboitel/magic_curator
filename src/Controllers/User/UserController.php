@@ -20,7 +20,7 @@ class UserController extends \App\Controllers\AbstractController
 	function show(Request $request, Response $response)
 	{
 		$user = User::where("email", "jules.boitelle@gmail.com")->first();
-		$this->renderer->render($response, "login.twig", []);
+		$this->renderer->render($response, "/auth/login.twig", ['user' => $user]);
 		return $response;
 	}
 }

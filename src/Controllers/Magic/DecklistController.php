@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Magic;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use App\Controllers;
 
-class DecklistController extends AbstractController
+class DecklistController extends \App\Controllers\AbstractController
 {
 	protected	$renderer;
 	private		$decklist;

@@ -1,0 +1,26 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<div>
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+			<form clas="form-signin" action="{{ path_for('register.register') }}">
+				<label class="sr-only" for="inputLogin">Login</label>
+				<input id="inputLogin" class="form-control" placeholder="Login" required="" autofocus="" type="login">
+				<label class="sr-only" for="inputEmail">Email</label>
+				<input id="inputLogin" class="form-control" placeholder="Email" required="" autofocus="" type="email">
+				<label class="sr-only" for="inputPassword">Password</label>
+				<input id="inputPassword" class="form-control" placeholder="Password" required="" autofocus="" type="password">
+				<div class="form-check">	
+					<input name="inputLicense" class="form-check-input" type="checkbox">
+					<label class="form-check-label" for="inputLicense">I agree to the MTGDataheap Terms of use and Privacy Policy</label>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

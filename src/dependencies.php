@@ -30,18 +30,16 @@ $container['renderer'] = function ($c) {
 	return ($view);
 };
 
-$container[\App\Controllers\UserController::class] = function($c) {
-	return new \App\Controllers\UserController($c);
+$container[\App\Controllers\Auth\AuthController::class] = function($c) {
+	return new \App\Controllers\Auth\AuthController($c);
+};
+$container[\App\Controllers\Auth\RegisterController::class] = function($c) {
+	return new \App\Controllers\Auth\RegisterController($c);
 };
 
-$container[\App\Controllers\MagicController::class] = function($c) {
-	return new \App\Controllers\MagicController($c);
+$container[\App\Controllers\Magic\WantlistController::class] = function($c) {
+	return new \App\Controllers\Magic\WantlistController($c);
 };
-
-$container[\App\Controllers\WantlistController::class] = function($c) {
-	return new \App\Controllers\WantlistController($c);
-};
-
-$container[\App\Controllers\DecklistController::class] = function($c) {
-	return new \App\Controllers\DecklistController($c);
+$container[\App\Controllers\Magic\DecklistController::class] = function($c) {
+	return new \App\Controllers\Magic\DecklistController($c);
 };

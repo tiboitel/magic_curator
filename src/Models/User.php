@@ -1,10 +1,12 @@
 <?php
 
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-class User implements \JsonSerializable
+class User extends Model implements \JsonSerializable
 {
-	use JsonSerializeTrait;
+	use 		\App\Models\JsonSerializeTrait;
 
 	private		$id;
 	private		$token;
@@ -53,7 +55,7 @@ class User implements \JsonSerializable
 
 	public function setPassword(string $password) : self
 	{
-		$this->password = $password
+		$this->password = $password;
 		return $this;
 	}
 

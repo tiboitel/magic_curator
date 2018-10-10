@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Magic;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use App\Controllers;
 use mtgsdk\Card;
 
-class WantlistController extends AbstractController
+class WantlistController extends \App\Controllers\AbstractController
 {
 	protected	$renderer;
 	private		$dataset;
