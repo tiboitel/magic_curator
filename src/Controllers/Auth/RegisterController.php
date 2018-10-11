@@ -30,6 +30,11 @@ class RegisterController extends \App\Controllers\AbstractController
 
 	public function register(Request $request, Response $response)
 	{
-		return $response;
+		$user = User::create([
+			'email' => $request->getParam('email'),
+			'login' => $request->getParam('login'),
+			'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT)
+		]);
+		return $response->withRedirect($this->router->pathFor('wantlist.show'));
 	}
 }

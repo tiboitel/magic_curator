@@ -1,4 +1,8 @@
-# MTGScrapper
+# MTGDatahealp
+
+## Usage
+
+- Update database by launching php ./scripts/Crawler.php
 
 ## 
 - Need to fixes authentification middleware.
@@ -12,6 +16,11 @@
 
 ## Dependencies
 pdeand/http PHP PSR-7 cURL HTTP Client.
-lazer PHP flat-file database.
 
+## Contributing
 
+- Fork it (( https://github.com/[my-github-username]/magic_curator/fork )
+- Create your feature branch (`git checkout -b my-new-awesome-feature`)
+- Commit your changes (`git commit -am `Added some new awesome feature`)
+- Push to the branch (`git push origin my-new-awesome-feature`)
+- Create the new pull request ! :)

@@ -14,4 +14,17 @@ class Helper
 			return true;
 		return false;
 	}
+
+	public static function colorsToString(Array $colors)
+	{
+		$string = '';
+		foreach ($colors as $color)
+		{
+			$string .= $color . '-';
+		}
+		$string = substr($string, 0, -1);
+		if (empty($string))
+			$string = 'colorless';
+		return ($string);
+	}
 }

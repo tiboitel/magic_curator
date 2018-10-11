@@ -19,18 +19,19 @@ class WantlistController extends \App\Controllers\AbstractController
 		$this->dataset = $this->load("../database/database.csv");
 	}
 
-	function show(Request $request, Response $response)
+	public function show(Request $request, Response $response)
 	{
 		$wantlist = $this->generate([
-			"price_min" => 5.01,
-			"price_max" => 99,
+			"price_min" => 0.01,
+			"price_max" => 3,
+			"colors" => ["Blue", "Black"],
 			"usage_min" => 2,
 			"usage_max" => 9999999]);
 		$this->renderer->render($response, 'staples.twig', array("wantlist" => $wantlist));
 		return $response;
 	}
 
-	function load($file)
+	private function load($file)
 	{
 		$dataset = [];
 		$file_handler = fopen($file, "r");
@@ -38,18 +39,33 @@ class WantlistController extends \App\Controllers\AbstractController
 		{
 			$dataset[] = [
 			"name" => $data[0],
-			"usage" => $data[1],
-			"occurence" => $data[2],
-			"price_low" => $data[3],
-			"price_average" => $data[4],
-			"price_high" => $data[5]
+			"colors" => explode("-", $data[1]),
+			"usage" => $data[2],
+			"occurence" => $data[3],
+			"price_low" => $data[4],
+			"price_average" => $data[5],
+			"price_high" => $data[6]
 			];
 		}
 		fclose($file_handler);
 		return ($dataset);
 	}
 
-	function generate($settings)
+	// Need to move this on an helper.
+	private function hasColor($card, $colors)
+	{
+		$match = 0;
+		foreach ($colors as $color)
+		{
+			if (in_array($color, $card['colors']))
+				$match++;
+		}
+		if ($match > 0 && $match >= count($card['colors']))
+			return (TRUE);
+		return (FALSE);
+	}
+
+	private function generate($settings)
 	{
 		$wantlist = "";
 		foreach ($this->dataset as $card)
@@ -58,7 +74,8 @@ class WantlistController extends \App\Controllers\AbstractController
 				$card['price_low'] <= $settings['price_max'] &&
 					$card['usage'] >= $settings['usage_min'] &&
 						$card['usage'] <= $settings['usage_max'] &&
-							$card['price_low'] != 0.0)
+						$card['price_low'] != 0.0 &&
+							$this->hasColor($card, $settings['colors']))
 			{
 				if (strpos($wantlist, $card['name']) == FALSE)
 					$wantlist .= $card['occurence'] . "x " . $card['name'] . "\r\n";

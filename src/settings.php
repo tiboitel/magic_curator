@@ -11,7 +11,7 @@ return [
 			'template_path' => __DIR__ . '/../templates/'
 		],
 		'database' => [
-			'database_path' => '../database/',
+			'database_path' => './database/',
 			'driver' => 'mysql',
 			'host' => 'localhost',
 			'database' => 'mtgdataheap',
