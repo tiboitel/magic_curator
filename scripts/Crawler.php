@@ -16,9 +16,9 @@ class MTGScrapper
 	public function __construct()
 	{
 		$this->client = new Client([
-				CURLOPT_SSL_VERIFYPEER => 0,
-				CURLOPT_SSL_VERIFYHOST => 0
-				]);
+			CURLOPT_SSL_VERIFYPEER => 0,
+			CURLOPT_SSL_VERIFYHOST => 0
+		]);
 	}
 
 	public function update_all_cards()
@@ -29,12 +29,11 @@ class MTGScrapper
 		{
 			$usage = $this->get_usage_in_standard($card->name);
 			if (Utils\Helper::isBasicLand($card->name))
-				{
-				printf("Current card: %s. Usage: %d. \r\n", $card->name, $usage);
+			{
+				// printf("Current card: %s. Usage: %d. \r\n", $card->name, $usage);
 				$price = $this->get_card_prices($card->name);
 				$cards_csv .=  $card->name . ";" . Utils\Helper::colorsToString(isset($card->colors) ? $card->colors : array()) . ";" . $usage . ";" . $this->get_occurence_per_deck($card->name) . ";" .  $price['low'] . ";" . $price['average'] . ";" . $price['high'] .  "\r\n";
 			}
-			// create an auction object with card name id usage price 
 		}
 		file_put_contents("../database/database.csv", $cards_csv);
 	}	
@@ -76,71 +75,61 @@ class MTGScrapper
 				{
 					switch ($column_id)
 					{
-						case 0:
-							// Place in tournament.
-							break;
-						case 1:
-							$node = $td->children(0)->children(0);
-							$deck['name'] = $node->plaintext;
-							$deck['source'] = $url . $node->href;
-							$deck['id'] = substr($deck['source'], strrpos($deck['source'], '-') + 1);							
-							$deck['author'] = substr($td->children(3)->plaintext, 3);
-							// need to use better function to clear html entitites
-							$deck['author'] = str_replace("&nbsp;",  "", $deck['author']);
-							break;
-						case 2:
-							$deck['archetype'] = $td->plaintext;
-							break;
-						case 3:
-							$color = "";
-							foreach ($td->find('span') as $span)
+					case 0:
+						// Place in tournament.
+						break;
+					case 1:
+						$node = $td->children(0);
+						$deck['name'] = $node->plaintext;
+						$deck['source'] = $url . $node->href;
+						$deck['id'] = substr($deck['source'], strrpos($deck['source'], '-') + 1);							
+						$deck['author'] = substr($td->children(2)->plaintext, 2);
+						// need to use better function to clear html entitites
+						$deck['author'] = str_replace("&nbsp;",  "", $deck['author']);
+						break;
+					case 2:
+						$node = $td->children(0);
+						$deck['archetype'] = trim($node->plaintext);
+						$color = "";
+						$node = $td->children(1);
+						if (isset($node))
+						{
+							foreach ($node->find('span') as $span)
 							{
-								if ($span->class !== "small-icon")
-								{
-									$class = explode(" ", $span->class);
+								$class = explode(" ", $span->class);
+								if (isset($class[2]))
 									$color .= substr($class[2], strrpos($class[2], '-') + 1);
-								}	
 							}
 							$deck['color'] = strtoupper($color);
-							// Colors
-							break;
-						case 4:
-							// Number of player
-							break;
-						case 5: 
-							// Date
-
-							break;
-						case 6:
-							// Price low.
-							break;
+						}
+						break;
 					}
+					// Colors
 					$column_id++;
 				}
-				if (isset($deck) && !empty($deck))
-					$decks_list[] = $deck;
 			}
+			if (isset($deck) && !empty($deck))
+				$decks_list[] = $deck;
 		}
 		return ($decks_list);
-		//	$content = $http_response->getBody();
 	}
 
 	public function get_deck($url)
 	{
-	 	$deck = new \App\Models\Deck();
+		$deck = new \App\Models\Deck();
 		$headers = [];
 		$http_response = $this->client->get($url);
 		$dom = HtmlDomParser::str_get_html($http_response->getBody());
-		$deck_info = $dom->find("div[class=deckInfo col-sm-8]", 0);
+		$deck_info = $dom->find("div[class=deckInfo col-sm-6]", 0);
 		// Get deck id.
 		$deck->setId((int)(substr($url, strrpos($url, "-") + 1)));
 		// Get deck name.
-		$deck->setName(substr($deck_info->children(0)->children(0)->plaintext, 0, -1));
+		$data = explode("&mdash;", trim($deck_info->children(0)->plaintext));
+		$deck->setName(substr($data[0], 0, strpos($data[0], ".")));
 		// Get deck author;
-		$tmp = $deck_info->children(0)->children(1)->plaintext;
-		$deck->setAuthor(substr($tmp, strpos($tmp, ":") + 2, -1));
+		$deck->setAuthor(substr($data[0], strrpos($data[0], ":") + 2, -2));
 		// Get deck date
-		$date = (empty($deck_info->children(4)->plaintext)) ? ($deck_info->children(3)->plaintext) : ($deck_info->children(4)->plaintext);
+		$date = $data[2];
 		$deck->setDate(\DateTime::createFromFormat(" j-M-Y", $date));
 		// Shit not done
 		$deck->setIdEvent(0);
@@ -152,10 +141,9 @@ class MTGScrapper
 		{
 			foreach ($table->find("tr[class=cardItem]") as $cardItem)
 			{
-				$line = $cardItem->children(0)->plaintext;
-				$number = substr($line, 1, 1);
-				$name = substr($line, strpos($line, ";") + 1, -13);
-				$cards[] = array('number' => $number, 'name' => htmlspecialchars_decode($name, ENT_QUOTES));
+				$line =str_replace("&nbsp;", "", $cardItem->children(0)->plaintext);
+				$data = explode(" ", $line);
+				$cards[] = array('number' => $data[0], 'name' => htmlspecialchars_decode($data[1], ENT_QUOTES));
 			}
 		}
 		$deck->setCards($cards);
@@ -164,23 +152,29 @@ class MTGScrapper
 
 	public function get_standard_cards()
 	{
-		// $standard  = Card::where(["set" => "DOM"])->where(["name" => "Knight of Malice"])->all();
-		//$standard = Card::where(["gameFormat" => "Standard"])->all();
-		$dom = Card::where(["set" => "DOM"])->all();
-		$m19 = Card::where(["set" => "M19"])->all();
-		$rlx = Card::where(["set" => "RIX"])->all();
-		$xln = Card::where(["set" => "XLN"])->all();
-		$grn = Card::where(["set" => "GRN"])->all();
-		$standard = array_merge($dom, $m19, $rlx, $xln, $grn);
+		$standard = Card::where(["gameFormat" => "Standard"])->all();
+		/*$dom = Card::where(["set" => "ELD"])->all();
+		$m19 = Card::where(["set" => "M21"])->all();
+		$rlx = Card::where(["set" => "THB"])->all();
+		$xln = Card::where(["set" => "IKO"])->all();
+		$grn = Card::where(["set" => "ZNR"])->all();*/
+		//$khm = Card::where(["set" => "KHM"])->all();
+		// $standard = array_merge($dom, $m19, $rlx, $xln, $grn, $khm);
 		return ($standard);
 	}
-
+	/**
+	 * 
+	 *
+	 */
 	public function get_card_prices($card)
 	{
 		$headers = [];
-		$http_response = $this->client->get("http://partner.tcgplayer.com/x3/phl.asmx/p?pk=TCGTEST&s=&p=" . urlencode($card));
+		$http_response = $this->client->get("https://partner.tcgplayer.com/x3/phl.asmx/p?pk=TCGTEST&s=&p=" . urlencode($card));
 		preg_match_all("/>(\d+.\d+)</m", $http_response->getBody(), $matches);
-		$price = ["high" => $matches[1][0], "low" => $matches[1][1], "average" => $matches[1][2]];
+		if (isset($matches[1][0]) && isset($matches[1][1]) && isset($matches[1][2]))
+			$price = ["high" => $matches[1][0], "low" => $matches[1][1], "average" => $matches[1][2]];
+		else
+			$price = ["high" => 0.00, "low" => 0.00, "average" => 0.00];
 		return ($price);
 	}
 
@@ -193,9 +187,7 @@ class MTGScrapper
 			foreach ($deck->cards as $card)
 			{
 				if ($card->name === $cardname)
-				{
 					$usage++;
-				}
 			}
 		}
 		return ($usage);
@@ -223,35 +215,38 @@ class MTGScrapper
 		return ($usage);
 
 	}
-	
+
+	/*
+	 * Good working order.
+	 */	
 	public function get_usage_in_standard_on_mtg_top_8($cardname)
 	{
 		$headers = [];
 		$body = http_build_query([
-				"current_page" => "",
-				"event_titre" => "",
-				"deck_titre" => "",
-				"player" => "",
-				"format" => "ST",
-				"archetype_sel[VI]" => "",
-				"archetype_sel[LE]" => "",
-				"archetype_sel[MO]" => "",
-				"archetype_sel[EX]" => "",
-				"archetype_sel[ST]" => "",
-				"archetype_sel[BL]" => "",
-				"archetype_sel[PAU]" => "",
-				"archetype_sel[EDH]" => "",
-				"archetype_sel[HIGH]" => "",
-				"archetype_sel[EDHP]" => "",
-				"archetype_sel[CHL]" => "",
-				"archetype_sel[PEA]" => "",
-				"archetype_sel[EDHM]" => "",
-				"MD_check" => 1,
-				"SB_check" => 1,
-				"cards" => $cardname,
-				"date_start" => "01/05/2018",
-				"date_end" => ""
-					]);
+			"current_page" => "",
+			"event_titre" => "",
+			"deck_titre" => "",
+			"player" => "",
+			"format" => "ST",
+			"archetype_sel[VI]" => "",
+			"archetype_sel[LE]" => "",
+			"archetype_sel[MO]" => "",
+			"archetype_sel[EX]" => "",
+			"archetype_sel[ST]" => "",
+			"archetype_sel[BL]" => "",
+			"archetype_sel[PAU]" => "",
+			"archetype_sel[EDH]" => "",
+			"archetype_sel[HIGH]" => "",
+			"archetype_sel[EDHP]" => "",
+			"archetype_sel[CHL]" => "",
+			"archetype_sel[PEA]" => "",
+			"archetype_sel[EDHM]" => "",
+			"MD_check" => 1,
+			"SB_check" => 1,
+			"cards" => urlencode($cardname),
+			"date_start" => "01/02/2021",
+			"date_end" => ""
+		]);
 		$http_response = $this->client->post("https://www.mtgtop8.com/search", $headers, $body);
 		preg_match("/([0-9]*) decks matching/m", $http_response->getBody(), $matches);
 		return ($matches[1]);
@@ -259,7 +254,7 @@ class MTGScrapper
 }
 
 $scrapper = new MTGScrapper();
+/* Update all cards infomations, then, update the whole decklist. */
 $scrapper->update_all_cards();
-file_put_contents("../database/decklist.json", json_encode($scrapper->update_decklist("Standard", 9)));
-file_put_contents("../database/decks.json", json_encode($scrapper->get_all_decks()));
-?>
+//file_put_contents("../database/decklist.json", json_encode($scrapper->update_decklist("Standard", 30)));
+//file_put_contents("../database/decks.json", json_encode($scrapper->get_all_decks()));

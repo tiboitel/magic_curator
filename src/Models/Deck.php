@@ -42,7 +42,7 @@ class Deck implements \JsonSerializable
 		return $this;
 	}
 
-	public function getAuthor(): ?int
+	public function getAuthor(): ?string
 	{
 		return $this->author;
 	}

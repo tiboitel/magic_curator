@@ -22,10 +22,10 @@ class WantlistController extends \App\Controllers\AbstractController
 	public function show(Request $request, Response $response)
 	{
 		$wantlist = $this->generate([
-			"price_min" => 0.01,
-			"price_max" => 3,
-			"colors" => ["Blue", "Black"],
-			"usage_min" => 2,
+			"price_min" => 0.001,
+			"price_max" => 200,
+			"colors" => ["Red", "Blue", "Green", "Black", "White"],
+			"usage_min" => 0,
 			"usage_max" => 9999999]);
 		$this->renderer->render($response, 'staples.twig', array("wantlist" => $wantlist));
 		return $response;
@@ -70,6 +70,7 @@ class WantlistController extends \App\Controllers\AbstractController
 		$wantlist = "";
 		foreach ($this->dataset as $card)
 		{
+			echo "<pre>" . print_r($card) . "</pre>";
 			if ($card['price_low'] >= $settings['price_min'] &&
 				$card['price_low'] <= $settings['price_max'] &&
 					$card['usage'] >= $settings['usage_min'] &&
