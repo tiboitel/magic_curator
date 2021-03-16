@@ -1,5 +1,5 @@
 {
-    "name": "fastsearch/fastsearchlbc",
+    "name": "mtgdataheap",
     "type": "project",
     "require": {
         "slim/slim": "3.0",
@@ -9,7 +9,7 @@
         "mtgsdk/mtgsdk": "dev-master",
         "sunra/php-simple-html-dom-parser": "dev-master",
         "slim/twig-view": "dev-master",
-        "illuminate/database": "^5.8@dev"
+  		"illuminate/database": "6.20.14"
     },
 	"autoload": {
 		"psr-4": {
