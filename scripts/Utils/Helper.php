@@ -11,8 +11,8 @@ class Helper
 					$name !== "Forest" &&
 						$name !== "Swamp" &&
 							$name !== "Island")
-			return true;
-		return false;
+			return false;
+		return true;
 	}
 
 	public static function colorsToString(Array $colors)

@@ -23,14 +23,16 @@ class MTGScrapper
 
 	public function update_all_cards()
 	{
+		error_log("Entering update all cards function." . PHP_EOL);
 		$cards = $this->get_standard_cards();
+		error_log("Retrieved cards from MTG API." . PHP_EOL);
 		$cards_csv = "";
 		foreach($cards as $card)
 		{
-			$usage = $this->get_usage_in_standard($card->name);
-			if (Utils\Helper::isBasicLand($card->name))
+			$usage = $this->get_usage_in_standard_on_mtg_top_8($card->name);
+			printf("Current card: %s. Usage: %d" . PHP_EOL, $card->name, $usage);
+			if (Utils\Helper::isBasicLand($card->name) === false)
 			{
-				// printf("Current card: %s. Usage: %d. \r\n", $card->name, $usage);
 				$price = $this->get_card_prices($card->name);
 				$cards_csv .=  $card->name . ";" . Utils\Helper::colorsToString(isset($card->colors) ? $card->colors : array()) . ";" . $usage . ";" . $this->get_occurence_per_deck($card->name) . ";" .  $price['low'] . ";" . $price['average'] . ";" . $price['high'] .  "\r\n";
 			}
@@ -152,14 +154,14 @@ class MTGScrapper
 
 	public function get_standard_cards()
 	{
-		$standard = Card::where(["gameFormat" => "Standard"])->all();
-		/*$dom = Card::where(["set" => "ELD"])->all();
+		//$standard = Card::where(["gameFormat" => "Standard"])->all();
+		$dom = Card::where(["set" => "ELD"])->all();
 		$m19 = Card::where(["set" => "M21"])->all();
 		$rlx = Card::where(["set" => "THB"])->all();
 		$xln = Card::where(["set" => "IKO"])->all();
-		$grn = Card::where(["set" => "ZNR"])->all();*/
-		//$khm = Card::where(["set" => "KHM"])->all();
-		// $standard = array_merge($dom, $m19, $rlx, $xln, $grn, $khm);
+		$grn = Card::where(["set" => "ZNR"])->all();
+		$khm = Card::where(["set" => "KHM"])->all();
+		$standard = array_merge($dom, $m19, $rlx, $xln, $grn, $khm);
 		return ($standard);
 	}
 	/**
@@ -186,7 +188,7 @@ class MTGScrapper
 		{
 			foreach ($deck->cards as $card)
 			{
-				if ($card->name === $cardname)
+				if ($card->name == $cardname)
 					$usage++;
 			}
 		}
@@ -221,7 +223,12 @@ class MTGScrapper
 	 */	
 	public function get_usage_in_standard_on_mtg_top_8($cardname)
 	{
-		$headers = [];
+        $headers = [];
+        $flip_offset = strpos($cardname, "//");
+        if ($flip_offset !== false)
+        {
+            $cardname = substr($cardname, 0, $flip_offset - 1);
+        }
 		$body = http_build_query([
 			"current_page" => "",
 			"event_titre" => "",
@@ -243,7 +250,7 @@ class MTGScrapper
 			"archetype_sel[EDHM]" => "",
 			"MD_check" => 1,
 			"SB_check" => 1,
-			"cards" => urlencode($cardname),
+			"cards" => $cardname,
 			"date_start" => "01/02/2021",
 			"date_end" => ""
 		]);
@@ -254,7 +261,12 @@ class MTGScrapper
 }
 
 $scrapper = new MTGScrapper();
-/* Update all cards infomations, then, update the whole decklist. */
+
+/*
+printf("Downloading last decks from MTG Decks..." . PHP_EOL);
+file_put_contents("../database/decklist.json", json_encode($scrapper->update_decklist("Standard", 10)));
+printf("Updating decks from MTG Decks..." . PHP_EOL);
+file_put_contents("../database/decks.json", json_encode($scrapper->get_all_decks()));
+ */
+printf("Downloading all standard cards..." . PHP_EOL);
 $scrapper->update_all_cards();
-//file_put_contents("../database/decklist.json", json_encode($scrapper->update_decklist("Standard", 30)));
-//file_put_contents("../database/decks.json", json_encode($scrapper->get_all_decks()));

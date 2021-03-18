@@ -22,11 +22,11 @@ class WantlistController extends \App\Controllers\AbstractController
 	public function show(Request $request, Response $response)
 	{
 		$wantlist = $this->generate([
-			"price_min" => 0.001,
-			"price_max" => 200,
+			"price_min" => 0,
+			"price_max" => 10,
 			"colors" => ["Red", "Blue", "Green", "Black", "White"],
-			"usage_min" => 0,
-			"usage_max" => 9999999]);
+			"usage_min" => 1,
+			"usage_max" => 9999]);
 		$this->renderer->render($response, 'staples.twig', array("wantlist" => $wantlist));
 		return $response;
 	}
