@@ -9,7 +9,7 @@
         "mtgsdk/mtgsdk": "dev-master",
         "sunra/php-simple-html-dom-parser": "dev-master",
         "slim/twig-view": "dev-master",
-  		"illuminate/database": "6.20.14"
+  		"illuminate/database": "6.20.26"
     },
 	"autoload": {
 		"psr-4": {
